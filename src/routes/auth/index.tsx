@@ -1,10 +1,9 @@
 import { lazy, Suspense } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import RootLayout from "./Rootlayout";
-import LoadingSpinner from "../components/loader/LoadingSpinner";
+import RootLayout from "../Rootlayout";
+import LoadingSpinner from "../../components/loader/LoadingSpinner";
 
-const LoginPage = lazy(() => import("../pages/Auth/LoginPage"));
-const SignUpPage = lazy(() => import("../pages/Auth/SignupPage"));
+const LoginPage = lazy(() => import("../../pages/Auth/LoginPage"));
+const SignUpPage = lazy(() => import("../../pages/Auth/SignupPage"));
 
 const fakeApi = (message: string) =>
   new Promise<{ message: string }>((resolve) => {
@@ -14,7 +13,7 @@ const fakeApi = (message: string) =>
 const loginLoader = async () => await fakeApi("Welcome to Login Page");
 const signupLoader = async () => await fakeApi("Welcome to Sign Up Page");
 
-const router = createBrowserRouter([
+export const authRoutes = [
   {
     element: <RootLayout />,
     children: [
@@ -38,8 +37,5 @@ const router = createBrowserRouter([
       },
     ],
   },
-]);
+];
 
-export default function AppRouter() {
-  return <RouterProvider router={router} />;
-}
