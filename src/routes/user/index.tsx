@@ -1,18 +1,21 @@
 import { lazy, Suspense } from "react";
 import RootLayout from "../Rootlayout";
 import LoadingSpinner from "../../components/loader/LoadingSpinner";
-
 const HomePage = lazy(() => import("../../pages/user/Home/Home"));
 const PersonName = lazy(() => import("../../pages/user/Zustand"));
+const TimeTable = lazy(() => import("../../pages/user/TimeTable"));
 
-const fakeApi = (message: string) =>
-  new Promise<{ message: string }>((resolve) => {
-    setTimeout(() => resolve({ message }), 500);
+import scheduleData from "../../data/schedule.json"
+
+
+const fakeApi = (message: string, data?: any[]) =>
+  new Promise<{ message: string, data?: any[] }>((resolve) => {
+    setTimeout(() => resolve({ message, data }), 500);
   });
 
 const homeLoader = async () => await fakeApi("Home Page");
 const personLoader = async () => await fakeApi("Person Name Page");
-
+const scheduleLoader = async () => await fakeApi("Timetable", scheduleData)
 export const userRoutes = [
   {
     element: <RootLayout />,
@@ -34,6 +37,15 @@ export const userRoutes = [
           </Suspense>
         ),
         loader: personLoader,
+      },
+      {
+        path: "/timetable",
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <TimeTable />
+          </Suspense>
+        ),
+        loader: scheduleLoader,
       }
     ],
   },

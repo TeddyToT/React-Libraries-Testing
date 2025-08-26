@@ -3,12 +3,13 @@ import { redirect } from "react-router-dom";
 import RootLayout from "../Rootlayout";
 import LoadingSpinner from "../../components/loader/LoadingSpinner";
 import { getCurrentUser } from "../../services/auth.service";
+
 const Dashboard = lazy(() => import("../../pages/admin/Dashboard"));
 
 
-const fakeApi = (message: string) =>
-  new Promise<{ message: string }>((resolve) => {
-    setTimeout(() => resolve({ message }), 500);
+const fakeApi = (message: string, data?: any[]) =>
+  new Promise<{ message: string, data?: any[] }>((resolve) => {
+    setTimeout(() => resolve({ message, data }), 500);
   });
 
 const dashboardLoader = async () => {
@@ -18,7 +19,7 @@ const dashboardLoader = async () => {
     return redirect("/login");
   }
 
-  if (user.role !== "admin") {
+  if (user !== "admin") {
     return redirect("/login");
   }
 

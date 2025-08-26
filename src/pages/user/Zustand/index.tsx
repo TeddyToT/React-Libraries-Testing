@@ -8,7 +8,7 @@ const PersonName = () => {
   const { firstName, lastName, updateFirstName, updateLastName } =
     usePersonStore();
 
-  const data = useLoaderData();
+  const data = useLoaderData() as { message: string };
 
   const {
     register: registerFirst,
