@@ -24,3 +24,22 @@ age:20,
 name:"Bruh"
 
 };
+
+export type Role = "user" | "admin" | null;
+
+export type CoffeeSale = {
+    date: string;
+    datetime: string,
+    hour_of_day: string,
+    cash_type: string,
+    card: string,
+    money: string,
+    coffee_name: string,
+    Time_of_Day: string,
+    Weekday: string,
+    Month_name: string,
+    Weekdaysort: string,
+    Monthsort: string
+}
+
+export type CoffeeRevunue = CoffeeSale[]

@@ -2,29 +2,25 @@ import { lazy, Suspense } from "react";
 import { redirect } from "react-router-dom";
 import RootLayout from "../Rootlayout";
 import LoadingSpinner from "../../components/loader/LoadingSpinner";
-import { getCurrentUser } from "../../services/auth.service";
-
+import useRole from "../../hooks/useRole";
+import coffeSaleData from "../../data/coffe_sales.json";
 const Dashboard = lazy(() => import("../../pages/admin/Dashboard"));
 
-
-const fakeApi = (message: string, data?: any[]) =>
-  new Promise<{ message: string, data?: any[] }>((resolve) => {
+const fakeApi = (message: string, data?: any[]) => {
+  if (!useRole.getRole()) {
+    return redirect("/login");
+  }
+  if (useRole.getRole() !== "admin") {
+    alert("Back to Home");
+    return redirect("/");
+  }
+  return new Promise<{ message: string; data?: any[] }>((resolve) => {
     setTimeout(() => resolve({ message, data }), 500);
   });
-
-const dashboardLoader = async () => {
-  const user = getCurrentUser();
-
-  if (!user) {
-    return redirect("/login");
-  }
-
-  if (user !== "admin") {
-    return redirect("/login");
-  }
-
-  return await fakeApi("Admin Dashboard");
 };
+
+const dashboardLoader = async () => fakeApi("Admin Dashboard", coffeSaleData);
+
 
 export const adminRoutes = [
   {
@@ -37,7 +33,7 @@ export const adminRoutes = [
             <Dashboard />
           </Suspense>
         ),
-        loader: dashboardLoader
+        loader: dashboardLoader,
       },
     ],
   },

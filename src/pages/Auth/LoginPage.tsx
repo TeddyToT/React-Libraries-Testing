@@ -1,6 +1,5 @@
 import { useLoaderData } from "react-router-dom";
 import LoginForm from "../../components/auth/LoginForm";
-
 export default function LoginPage() {
     const data = useLoaderData() as { message: string };
   return (
