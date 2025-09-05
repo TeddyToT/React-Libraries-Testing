@@ -5,7 +5,7 @@ import LoadingSpinner from "../../components/loader/LoadingSpinner";
 import useRole from "../../hooks/useRole";
 import coffeSaleData from "../../data/coffe_sales.json";
 const Dashboard = lazy(() => import("../../pages/admin/Dashboard"));
-const TipTap = lazy(() => import("../../pages/admin/TipTap"));
+const TipTap = lazy(() => import("../../pages/admin/TipTap/text-color"));
 
 const fakeApi = (message: string, data?: any[]) => {
   if (!useRole.getRole()) {

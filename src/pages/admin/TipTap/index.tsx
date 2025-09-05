@@ -1,6 +1,5 @@
 // src/Tiptap.tsx
-import { useMemo } from "react";
-import { useEditor, EditorContent, EditorContext } from "@tiptap/react";
+import { useEditor, EditorContent } from "@tiptap/react";
 import { FloatingMenu, BubbleMenu } from "@tiptap/react/menus";
 import StarterKit from "@tiptap/starter-kit";
 
@@ -11,7 +10,6 @@ const Tiptap = () => {
   });
 
   // Memoize the provider value to avoid unnecessary re-renders
-  const providerValue = useMemo(() => ({ editor }), [editor]);
 
   return (
     <>
